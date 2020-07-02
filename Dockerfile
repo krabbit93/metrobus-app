@@ -1,4 +1,4 @@
-FROM python:3.7.8-alpine3.12
+FROM python:3.7.8-slim
 
 WORKDIR /usr/src/app
 
@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "sync.py"]
+CMD ["python", "unit_location_sync.py"]

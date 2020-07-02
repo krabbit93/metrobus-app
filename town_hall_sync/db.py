@@ -1,9 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from . import config
-from .models.town_hall import TownHall
-from .models.delimiter_point import DelimiterPoint
+from domain import TownHall, DelimiterPoint, config
 
 
 def save_town_halls(records):
@@ -33,7 +31,7 @@ def save_town_hall(session, town_hall_fields: dict):
 
     for coords in town_hall_fields["geo_shape"]["coordinates"]:
         for point in coords:
-            session.add(DelimiterPoint(latitude=point[0], longitude=point[1], town_hall_id=town_hall.id))
+            session.add(DelimiterPoint(latitude=point[1], longitude=point[0], town_hall_id=town_hall.id))
 
 
 def get_session():
@@ -42,3 +40,17 @@ def get_session():
     """
     engine = create_engine(config.url_db)
     return sessionmaker(bind=engine)()
+
+
+def contains_info():
+    session = get_session()
+    total = session.query(TownHall).count()
+    return total > 0
+
+
+def find_townhalls():
+    session = get_session()
+    town_halls = session.query(TownHall).all()
+    for town_hall in town_halls:
+        town_hall.register_limits(session.query(DelimiterPoint).filter_by(town_hall_id=town_hall.id).all())
+    return town_halls
