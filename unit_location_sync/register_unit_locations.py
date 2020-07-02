@@ -4,5 +4,10 @@ from unit_location_sync import db
 
 
 def register_unit_locations(town_halls):
-    unit_ubications = data.find(url_data_units_location)
-    db.save_unit_locations(town_halls, unit_ubications["records"])
+    """
+    Find all current locations from api and save into database
+    :param town_halls: All town halls and his delimiters
+    :return:
+    """
+    unit_locations = data.find(url_data_units_location)
+    db.save_unit_locations(town_halls, unit_locations["records"])
