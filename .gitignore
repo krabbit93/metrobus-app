@@ -7,5 +7,5 @@ __pycache__/
 .idea
 MetrobusApp.iml
 
-town_hall_sync/docker-compose.yaml
+docker-compose.yaml
 database_config/docker-compose.yaml
