@@ -11,4 +11,4 @@ def find_data():
     if not db.contains_info():
         town_halls = data.find(config.url_data_town_hall)
         db.save_town_halls(town_halls["records"])
-    return db.find_townhalls()
+    return db.find_town_halls()

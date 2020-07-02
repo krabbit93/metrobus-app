@@ -43,12 +43,20 @@ def get_session():
 
 
 def contains_info():
+    """
+    Simple counter to verify if town halls are loaded
+    :return: A boolean that indicate if table contains data
+    """
     session = get_session()
     total = session.query(TownHall).count()
     return total > 0
 
 
-def find_townhalls():
+def find_town_halls():
+    """
+    Recover all town halls and his delimiters point
+    :return:
+    """
     session = get_session()
     town_halls = session.query(TownHall).all()
     for town_hall in town_halls:
