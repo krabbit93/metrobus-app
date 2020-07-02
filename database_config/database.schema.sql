@@ -18,3 +18,12 @@ create table if not exists delimiter_points
     constraint delimiter_points_town_halls_id_fk
         foreign key (town_hall_id) references town_halls (id)
 );
+
+create table if not exists units
+(
+    id         int auto_increment
+        primary key,
+    vehicle_id varchar(20) not null,
+    label      varchar(80) not null
+);
+
