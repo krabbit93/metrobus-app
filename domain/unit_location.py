@@ -16,3 +16,4 @@ class UnitLocation(Base):
     town_hall_id = Column(Integer)
     unit_id = Column(Integer)
     date_updated = Column(Date)
+    record_id = Column(String)
