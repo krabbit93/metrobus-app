@@ -4,8 +4,12 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class TownHall(Base):
-    __tablename__ = 'town_halls'
+class Unit(Base):
+    """
+    A vehicle unit
+    """
+    __tablename__ = 'units'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    vehicle_id = Column(String)
+    label = Column(String)

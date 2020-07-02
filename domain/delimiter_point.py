@@ -5,6 +5,9 @@ Base = declarative_base()
 
 
 class DelimiterPoint(Base):
+    """
+    Entity that represents a point of boundary zone's town hall
+    """
     __tablename__ = "delimiter_points"
 
     id = Column(Integer, primary_key=True)
