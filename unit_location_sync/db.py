@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from domain import config, Unit
+from domain import config, Unit, UnitLocation
 
 
 def get_unit(session, vehicle_id, vehicle_label):
@@ -34,7 +34,7 @@ def get_town_hall(town_halls, latitude, longitude):
     return
 
 
-def save_unit_location(session, town_halls, fields):
+def save_unit_location(session, town_halls, record_id, fields):
     """
     Save unit location into the database
     :param session:
@@ -43,20 +43,40 @@ def save_unit_location(session, town_halls, fields):
     :return:
     """
     unit = get_unit(session, fields["vehicle_id"], fields["vehicle_label"])
-    town_hall = get_town_hall(town_halls, fields["position_latitude"], fields["position_longitude"])
-    print (town_hall)
+    latitude = fields["position_latitude"]
+    longitude = fields["position_longitude"]
+    town_hall = get_town_hall(town_halls, latitude, longitude)
+    session.add(UnitLocation(
+        latitude=latitude,
+        longitude=longitude,
+        town_hall_id=town_hall.id,
+        unit_id=unit.id,
+        date_updated=fields["date_updated"],
+        record_id=record_id
+    ))
+
+
+def has_been_processed(session, record_id):
+    """
+    Check if recordid of this unit has been processed before
+    :param session:
+    :param record_id:
+    :return:
+    """
+    return session.query(UnitLocation).filter_by(record_id=record_id.__str__()).count() > 0
 
 
 def save_unit_locations(town_halls, records):
     """
-    Loop over all records and processing
+    Loop over all records and processing if not has been processed
     :param town_halls:
     :param records:
     :return:
     """
     session = get_session()
     for record in records:
-        save_unit_location(session, town_halls, record["fields"])
+        if not has_been_processed(session, record["recordid"]):
+            save_unit_location(session, town_halls, record["recordid"], record["fields"])
     session.commit()
 
 
