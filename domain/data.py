@@ -1,4 +1,5 @@
 import json
+import logging
 from urllib.request import urlopen
 
 
@@ -13,5 +14,5 @@ def find(url: str):
         data = json.loads(response.read())
         return data
     except Exception as e:
-        print("Can't find data from url: ", url)
+        logging.error("Can't find data from url: ", url)
         raise e

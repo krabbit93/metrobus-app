@@ -1,4 +1,14 @@
+import logging
 import os
+import sys
+
+"""
+Configure logs to simple stdout
+"""
+handler = logging.StreamHandler(sys.stdout)
+handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s:%(message)s", "%Y-%m-%d %H:%M:%S"))
+logging.getLogger().addHandler(handler)
+logging.getLogger().setLevel(logging.INFO)
 
 url_data_town_hall = "https://datos.cdmx.gob.mx/api/records/1.0/search/?dataset=limite-de-las-alcaldias&q=&rows=16&facet=nomgeo"
 

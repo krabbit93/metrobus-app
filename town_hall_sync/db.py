@@ -23,8 +23,6 @@ def save_town_hall(session, town_hall_fields: dict):
     :param town_hall_fields: Field's record
     :return:
     """
-    print(f'Processing {town_hall_fields["nomgeo"]}.')
-
     town_hall = TownHall(name=town_hall_fields["nomgeo"])
     session.add(town_hall)
     session.flush()
