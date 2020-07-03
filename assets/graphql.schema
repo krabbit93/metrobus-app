@@ -1,7 +1,7 @@
 type Unit{
 	id: Int
 	label: String
-	unitId: Int
+	vehicleId: String
 }
 
 type TownHall{

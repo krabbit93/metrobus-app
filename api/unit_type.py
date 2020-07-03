@@ -12,4 +12,4 @@ class UnitType(ObjectType):
     """
     id = Int()
     label = String()
-    vehicle_id = Int()
+    vehicle_id = String()

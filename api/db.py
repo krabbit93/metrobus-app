@@ -11,7 +11,7 @@ def find_units():
     return session.query(Unit).all()
 
 
-def find_location_units(unit_id):
+def find_locations_of_unit(unit_id):
     """
     All locations that unit_id has been inside
     """

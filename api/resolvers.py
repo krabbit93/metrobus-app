@@ -30,7 +30,7 @@ def unit_location_history(unit_id):
             town_hall=TownHallType(id=it[town_hall].id, name=it[town_hall].name) if it[town_hall] else None,
             date=it[location].date_updated
         )
-        for it in db.find_location_units(unit_id)
+        for it in db.find_locations_of_unit(unit_id)
     ]
 
 
