@@ -33,7 +33,7 @@ create table if not exists unit_locations
         primary key,
     latitude decimal(20,16) not null,
     longitude decimal(20,16) not null,
-    town_hall_id int not null,
+    town_hall_id int, #Some (lat, lon) registered not found in any town hall
     unit_id int not null,
     date_updated timestamp not null,
     record_id varchar(120) not null,
