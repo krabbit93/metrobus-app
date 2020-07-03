@@ -1,16 +1,16 @@
 from graphene import ObjectType, DateTime, Int, Field, Float
-from .vehicle_type import VehicleType
+from .unit_type import UnitType
 from .town_hall_type import TownHallType
 
 
-class VehicleLocationType(ObjectType):
+class UnitLocationType(ObjectType):
     """
     Graphql definition type
-    type VehicleLocation{
+    type UnitLocation {
         id: Int
         latitude: Float
         longitude: Float
-        vehicle: Vehicle
+        unit: Unit
         townHall: TownHall
         date: DateTime
     }
@@ -18,7 +18,7 @@ class VehicleLocationType(ObjectType):
     id = Int()
     latitude = Float()
     longitude = Float()
-    vehicle = Field(VehicleType)
+    unit = Field(UnitType)
     town_hall = Field(TownHallType)
     date = DateTime()
 

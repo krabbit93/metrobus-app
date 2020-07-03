@@ -1,46 +1,46 @@
-type Vehicle{
-    id: Int
-    label: String
-    vehicleId: Int
+type Unit{
+	id: Int
+	label: String
+	unitId: Int
 }
 
 type TownHall{
-    id: Int
-    name: String
+	id: Int
+	name: String
 }
 
-type VehicleLocation{
-    id: Int
-    latitude: Float
-    longitude: Float
-    vehicle: Vehicle
-    townHall: TownHall
-    date: DateTime
+type UnitLocation{
+	id: Int
+	latitude: Float
+	longitude: Float
+	unit: Unit
+	townHall: TownHall
+	date: DateTime
 }
 
 scalar DateTime
 
 type Query{
     """
-    Obtain a list of vehicles that have been within a town hall
+    Obtain a list of units that have been within a town hall
     """
-    availableVehicles: [Vehicle]
+    availableUnits: [Unit]
     """
-    Get the history of locations/dates of a vehicle
+    Get the history of locations/dates of a unit
     """
-    vehicleLocationHistory(
-        vehicleId: Int!
-    ): [VehicleLocation]
+    unitLocationHistory(
+        unitId: Int!
+    ): [UnitLocation]
     """
     Get a list of available town halls
     """
     availableTownHalls: [TownHall]
     """
-    Get all the vehicles that were in a town hall
+    Get all the units that were in a town hall
     """
-    vehiclesInTownHall(
+    unitsInTownHall(
         townHallId: Int!
-    ): [Vehicle]
+    ): [Unit]
 }
 schema{
     query: Query

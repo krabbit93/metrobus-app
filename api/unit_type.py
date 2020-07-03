@@ -1,10 +1,10 @@
 from graphene import ObjectType, Int, String
 
 
-class VehicleType(ObjectType):
+class UnitType(ObjectType):
     """
     Graphql definition type
-    type Vehicle{
+    type Unit{
         id: Int
         label: String
         vehicleId: Int

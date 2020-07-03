@@ -19,7 +19,7 @@ def find_location_units(unit_id):
     return session.query(UnitLocation, Unit, TownHall).join(
         Unit, UnitLocation.unit_id == Unit.id
     ).join(
-        TownHall, UnitLocation.town_hall_id == TownHall.id
+        TownHall, UnitLocation.town_hall_id == TownHall.id, isouter=True
     ).filter(UnitLocation.unit_id == unit_id).all()
 
 

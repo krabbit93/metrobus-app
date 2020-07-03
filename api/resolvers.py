@@ -1,36 +1,36 @@
 from . import db
-from .vehicle_type import VehicleType
-from .vehicle_location_type import VehicleLocationType
+from .unit_type import UnitType
+from .unit_location_type import UnitLocationType
 from .town_hall_type import TownHallType
 
 
-def available_vehicles():
+def available_units():
     """
-    Obtain a list of vehicles that have been within a town hall
+    Obtain a list of units that have been within a town hall
     """
     return [
-        VehicleType(id=it.id, vehicle_id=it.vehicle_id, label=it.label)
+        UnitType(id=it.id, vehicle_id=it.vehicle_id, label=it.label)
         for it in db.find_units()
     ]
 
 
-def vehicle_location_history(vehicle_id):
+def unit_location_history(unit_id):
     """
-    Get the history of locations/dates of a vehicle
+    Get the history of locations/dates of a units
     """
     location = 0
     unit = 1
     town_hall = 2
     return [
-        VehicleLocationType(
+        UnitLocationType(
             id=it[location].id,
             latitude=it[location].latitude,
             longitude=it[location].longitude,
-            vehicle=VehicleType(id=it[unit].id, label=it[unit].label, vehicle_id=it[unit].vehicle_id),
-            town_hall=TownHallType(id=it[town_hall].id, name=it[town_hall].name),
+            unit=UnitType(id=it[unit].id, label=it[unit].label, vehicle_id=it[unit].vehicle_id),
+            town_hall=TownHallType(id=it[town_hall].id, name=it[town_hall].name) if it[town_hall] else None,
             date=it[location].date_updated
         )
-        for it in db.find_location_units(vehicle_id)
+        for it in db.find_location_units(unit_id)
     ]
 
 
@@ -44,11 +44,11 @@ def available_town_halls():
     ]
 
 
-def vehicles_in_town_hall(town_hall_id):
+def units_in_town_hall(town_hall_id):
     """
-    Get all the vehicles that were in a town hall
+    Get all the units that were in a town hall
     """
     return [
-        VehicleType(id=it.id, label=it.label, vehicle_id=it.vehicle_id)
+        UnitType(id=it.id, label=it.label, vehicle_id=it.vehicle_id)
         for it in db.find_units_has_been_town_hall(town_hall_id)
     ]
