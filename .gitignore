@@ -9,4 +9,3 @@ myapp.log
 MetrobusApp.iml
 
 docker-compose.yaml
-database_config/docker-compose.yaml
