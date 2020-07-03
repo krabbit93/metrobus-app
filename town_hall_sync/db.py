@@ -58,5 +58,6 @@ def find_town_halls():
     session = get_session()
     town_halls = session.query(TownHall).all()
     for town_hall in town_halls:
-        town_hall.register_limits(session.query(DelimiterPoint).filter_by(town_hall_id=town_hall.id).all())
+        delimiters_point = session.query(DelimiterPoint).filter_by(town_hall_id=town_hall.id).all()
+        town_hall.register_limits([(it.latitude, it.longitude) for it in delimiters_point])
     return town_halls

@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from domain import config, Unit, UnitLocation
+from matplotlib import path
 
 
 def get_unit(session, vehicle_id, vehicle_label):
@@ -29,7 +30,8 @@ def get_town_hall(town_halls, latitude, longitude):
     :return: Town hall that contains latutude and longitude
     """
     for town_hall in town_halls:
-        if town_hall.contains(latitude, longitude):
+        polygon = path.Path(town_hall.delimiter_points)
+        if polygon.contains_point((latitude, longitude)):
             return town_hall
     return
 

@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y cron
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN touch /usr/src/environ
 RUN touch /var/log/microbus_cron.log
