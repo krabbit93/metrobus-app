@@ -1,6 +1,6 @@
 from graphene import Schema
-from api import RootQuery
+from .query import Query
 
 schema = Schema(
-    query=RootQuery
+    query=Query
 )

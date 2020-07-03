@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from flask_graphql import GraphQLView
 from api import schema
