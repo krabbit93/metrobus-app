@@ -51,7 +51,7 @@ def save_unit_location(session, town_halls, record_id, fields):
     session.add(UnitLocation(
         latitude=latitude,
         longitude=longitude,
-        town_hall_id=town_hall.id,
+        town_hall_id=town_hall.id if town_hall else None,
         unit_id=unit.id,
         date_updated=fields["date_updated"],
         record_id=record_id
