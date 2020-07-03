@@ -3,9 +3,9 @@ FROM python:3.7.8-slim
 WORKDIR /usr/src/app
 RUN apt-get update && apt-get install --no-install-recommends -y cron
 
-COPY requirements.txt .
+COPY requirements.cron.txt requirements.cron.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.cron.txt
 
 RUN touch /usr/src/environ
 RUN touch /var/log/microbus_cron.log
@@ -19,7 +19,10 @@ RUN echo "source /usr/src/environ &&" > /usr/src/run_py.sh
 RUN echo "$(which python) /usr/src/app/unit_location_sync.py" >> /usr/src/run_py.sh
 RUN chmod +x /usr/src/run_py.sh
 
-COPY . .
+COPY domain .
+COPY town_hall_sync .
+COPY unit_location_sync .
+COPY unit_location_sync.py .
 
 RUN crontab /etc/cron.d/microbus_cron
 
