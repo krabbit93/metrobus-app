@@ -99,7 +99,13 @@ la información de la ubicacion de las unidades del metrobus(ver:[Unit location 
 ## <span id="contenedores">Contenedores</span>
 ### <span id="contenedor-api">API</span>
 Dockerfile.api
+
+Imagen base utilizada: [python:3.7.8-slim](https://hub.docker.com/layers/python/library/python/3.7.8-slim/images/sha256-fe3f2c2b6ad6bb010426f50cdcc2350eef28f09505c1046f2ca68145c41ff6c6?context=explore) 
 ### <span id="contenedor-cron">Cron</span>
 Dockerfile.cron
+
+Imagen base utilizada: [mysql:8.0.20](https://hub.docker.com/layers/mysql/library/mysql/8.0.20/images/sha256-0ba38ea9c478d1e98b2f0bc0cee5a62345c9f06f78c4b48123bdc70d8d224686?context=explore)
 ### <span id="contenedor-database">Database</span>
 Dockerfile.database
+
+Imagen base utilizada: [python:3.7.8-slim](https://hub.docker.com/layers/python/library/python/3.7.8-slim/images/sha256-fe3f2c2b6ad6bb010426f50cdcc2350eef28f09505c1046f2ca68145c41ff6c6?context=explore)
