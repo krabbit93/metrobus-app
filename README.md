@@ -1,7 +1,10 @@
 # Consulta de alcaldías y unidades de metrobus
 ## Tabla de contenido
-- [Introducción](#introduccion)
+- [Especificación](#especificacion)
 - [Diagrama general de la solución](#diagrama_general)
+- [Diagramas de secuencia del los procesos de la solucion](#procesos_solucion)
+    - [Proceso de consulta de datos abiertos y registro de información](#proc_consulta_datos_abiertos)
+    - [Procesos de consulta de información via API](#proc_consulta_api)
 - [Módulos](#modulos)
     - [Town hall sync](#mod_town_hall_sync)
     - [Domain](#domain)
@@ -14,11 +17,28 @@
     - [Database](#contenedor-database)
 
 
-## <span id="introduccion">Introducción</span>
+## <span id="especificacion">Especificación</span>
+
+Desarrollar un pipeline de análisis de datos utilizando los datos abiertos de la Ciudad de México
+correspondientes a la ubicación de las unidades del metrobús durante la última hora para
+obtener un histórico de la posición en la que se encuentra cada unidad que pueda ser
+consultado mediante un API Rest (o Graphql) filtrando por unidad o por alcaldía.
 
 
 ## <span id="diagrama_general">Diagrama general de la solución</span>
 ![Diagrama general de la solución](/assets/general.png)
+
+*<sub>Diagrama general simplificado de la solución</sub>*
+## <span id="procesos_solucion">Diagramas de secuencia del los procesos de la solucion</span>
+### <span id="proc_consulta_datos_abiertos">Proceso de consulta de datos abiertos y registro de información</span>
+![Proceso de consulta de datos abiertos](/assets/secuencia_recuperacion_datos.png)
+
+*<sub>Diagrama de secuencia de proceso de consulta de datos abiertos y registro de información</sub>*
+
+### <span id="proc_consulta_api">Procesos de consulta de información via API</span>
+![Proceso de consulta via API](/assets/secuencia_api.png)
+
+*<sub>Diagrama de secuencia de proceso de consulta via API</sub>*
 
 ## <span id="modulos">Módulos</span>
 ### <span id="town_hall_sync">Town hall sync [town_hall_sync]</span>
