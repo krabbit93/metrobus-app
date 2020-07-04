@@ -88,8 +88,8 @@ schema{
 
 ## <span id="archivos">Archivos</span>
 - **api.py:** Inicia un servidor que expone el endpoint **/api** que corresponde a la API Graphql
-- **unit_location_sync.py:** Inicia el proceso de guardar la informacion de las alcaldias si no existe (ver: [Town hall sync](town_hall_sync)), despues guarda
-la información de la ubicacion de las unidades del metrobus( ver:[Unit location sync](#unit_location_sync))
+- **unit_location_sync.py:** Inicia el proceso de guardar la informacion de las alcaldias si no existe (ver: [Town hall sync](#town_hall_sync)), despues guarda
+la información de la ubicacion de las unidades del metrobus(ver:[Unit location sync](#unit_location_sync))
 - **requirements.api.py:** Dependencias del contenedor [API](#contenedor-api)
 - **requirements.cron.py:** Dependencias del contendor [CRON](#contenedor-cron)
 - **Dockerfile.api:** Dockerfile para el contenedor [API](#contenedor-api)
