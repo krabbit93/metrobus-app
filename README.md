@@ -1,8 +1,8 @@
 # Consulta de alcaldías y unidades de metrobus
 ## Tabla de contenido
-- [Especificación](#especificacion)
-- [Diagrama general de la solución](#diagrama_general)
-- [Diagramas de secuencia del los procesos de la solucion](#procesos_solucion)
+- [Especificación del problema](#especificacion)
+- [Diagrama general simplificado de la solución](#diagrama_general)
+- [Diagramas de los procesos de la solucion](#procesos_solucion)
     - [Proceso de consulta de datos abiertos y registro de información](#proc_consulta_datos_abiertos)
     - [Procesos de consulta de información via API](#proc_consulta_api)
 - [Módulos](#modulos)
@@ -17,7 +17,7 @@
     - [Database](#contenedor-database)
 
 
-## <span id="especificacion">Especificación</span>
+## <span id="especificacion">Especificación del problema</span>
 
 Desarrollar un pipeline de análisis de datos utilizando los datos abiertos de la Ciudad de México
 correspondientes a la ubicación de las unidades del metrobús durante la última hora para
@@ -25,20 +25,20 @@ obtener un histórico de la posición en la que se encuentra cada unidad que pue
 consultado mediante un API Rest (o Graphql) filtrando por unidad o por alcaldía.
 
 
-## <span id="diagrama_general">Diagrama general de la solución</span>
+## <span id="diagrama_general">Diagrama general simplificado de la solución</span>
 ![Diagrama general de la solución](/assets/general.png)
 
 *<sub>Diagrama general simplificado de la solución</sub>*
-## <span id="procesos_solucion">Diagramas de secuencia del los procesos de la solucion</span>
+## <span id="procesos_solucion">Diagramas de los procesos de la solucion</span>
 ### <span id="proc_consulta_datos_abiertos">Proceso de consulta de datos abiertos y registro de información</span>
-![Proceso de consulta de datos abiertos](/assets/secuencia_recuperacion_datos.png)
+![Proceso de consulta de datos abiertos](/assets/process_collect_data.png)
 
-*<sub>Diagrama de secuencia de proceso de consulta de datos abiertos y registro de información</sub>*
+*<sub>Diagrama de proceso de consulta de datos abiertos y registro de información</sub>*
 
 ### <span id="proc_consulta_api">Procesos de consulta de información via API</span>
-![Proceso de consulta via API](/assets/secuencia_api.png)
+![Proceso de consulta via API](/assets/process_api.png)
 
-*<sub>Diagrama de secuencia de proceso de consulta via API</sub>*
+*<sub>Diagrama de proceso de consulta via API</sub>*
 
 ## <span id="modulos">Módulos</span>
 ### <span id="town_hall_sync">Town hall sync [town_hall_sync]</span>
@@ -48,12 +48,21 @@ Este módulo recupera la información del API pública [*"limite de las alcaldia
 ### <span id="domain">Domain [domain]</span>
 Contiene la especificación de los objetos que mapean las tablas usando el ORM [SQLAlchemy](https://www.sqlalchemy.org/)
 
+
+
 ### <span id="unit_location_sync">Unit location sync [unit_location_sync]</span>
 Determina a que alcaldia pertenece cada ubicacion obtenida de API pública [*"Ubicación de las unidades del Metrobús"*](https://datos.cdmx.gob.mx/explore/dataset/prueba_fetchdata_metrobus/information/) utilizando 
 [Matlibplot](https://matplotlib.org/) y [Numpy](https://numpy.org/), posteriormente registra la información en la base de datos.
 
 ### <span id="api">API [api]</span>
 Define el *Schema* del API Graphql utilizando [Graphene](https://graphene-python.org/) y resuelve cada petición
+
+El script de la base de datos puede ser consultado [aquí](/database_config/database.schema.sql),
+el cual genera el siguiente diagrama:
+
+![Diagrama de base de datos](/assets/database.png)
+
+<sub>Diagrama de base de datos</sub>
 
 A continuación se presenta el [Schema utilizado](/assets/graphql.schema):
 ````python
