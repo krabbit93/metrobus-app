@@ -146,7 +146,7 @@ Imagen base utilizada: [python:3.7.8-slim](https://hub.docker.com/layers/python/
 
 Construccion: 
 ```shell script
- docker build -t krabbit1993/metrobus_api:1.0.1 -f Dockerfile.api .
+ docker build -t krabbit1993/metrobus_api:1.0.2 -f Dockerfile.api .
 ``` 
 ### <span id="contenedor-cron">Cron</span>
 [Dockerfile.cron](/Dockerfile.cron)

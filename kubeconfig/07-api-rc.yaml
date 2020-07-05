@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: krabbit1993/metrobus_api:1.0.1
+          image: krabbit1993/metrobus_api:1.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
