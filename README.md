@@ -8,7 +8,7 @@
 - [Versiones](#versiones)
 - [Módulos](#modulos)
     - [Domain](#domain)
-    - [Town hall sync](#mod_town_hall_sync)
+    - [Town hall sync](#town_hall_sync)
     - [Unit location sync](#unit_location_sync)
     - [API](#api)
     - [Test](#test)
@@ -17,7 +17,7 @@
     - [API](#contenedor-api)
     - [Cron](#contenedor-cron)
     - [Database](#contenedor-database)
-- [Kubernetes](#kubernetes)
+- [Archivos de despliege para Kubernetes](#kubernetes)
 
 
 ## <span id="especificacion">Especificación del problema</span>
@@ -132,8 +132,8 @@ Contiene los test unitarios.
 - **[api.py](/api.py):** Inicia un servidor que expone el endpoint **/api** que corresponde a la API Graphql
 - **[unit_location_sync.py](/unit_location_sync.py):** Inicia el proceso de guardar la informacion de las alcaldias si no existe (ver: [Town hall sync](#town_hall_sync)), despues guarda
 la información de la ubicacion de las unidades del metrobus(ver:[Unit location sync](#unit_location_sync))
-- **[requirements.api](/requirements.api).py:** Dependencias del contenedor [API](#contenedor-api)
-- **[requirements.cron](/requirements.cron).py:** Dependencias del contendor [CRON](#contenedor-cron)
+- **[requirements.api.py](/requirements.api.py):** Dependencias del contenedor [API](#contenedor-api)
+- **[requirements.cron.py](/requirements.cron.py):** Dependencias del contendor [Cron](#contenedor-cron)
 - **[Dockerfile.api](/Dockerfile.api):** Dockerfile para el contenedor [API](#contenedor-api)
 - **[Dockerfile.cron](/Dockerfile.cron):** Dockerfile para el contenedor [Cron](#contenedor-cron)
 - **[Dockerfile.database](/Dockerfile.database):** Dockerfile para el contenedor [Database](#contenedor-database)
@@ -167,10 +167,13 @@ Construccion:
  docker build -t krabbit1993/metrobus_database:1.0.0 -f Dockerfile.database .
 ``` 
 
-## <span id="kubernetes">Archivos de despiegle para Kubernetes</span>
+## <span id="kubernetes">Archivos de despliege para Kubernetes</span>
 
-- **[/kubeconfig/01-database-pv.yaml](/kubeconfig/01-database-pv.yaml)**: Volumen para la base de datos.
-- **[/kubeconfig/02-database-pvc.yaml](/kubeconfig/02-database-pvc.yaml)**: Claim para el volumen la base de datos.
-- **[/kubeconfig/03-database-secret.yaml](/kubeconfig/03-database-secret.yaml)**: Credenciales de acceso para la base de datos.-
- 
- 
+- **[/kubeconfig/01-database-pv.yaml](/kubeconfig/01-database-pv.yaml)**: Volumen persistente para la base de datos.
+- **[/kubeconfig/02-database-pvc.yaml](/kubeconfig/02-database-pvc.yaml)**: Claims para el volumen persistente.
+- **[/kubeconfig/03-database-secret.yaml](/kubeconfig/03-database-secret.yaml)**: Credenciales para la base de datos.
+- **[/kubeconfig/04-database-rc.yaml](/kubeconfig/04-database-rc.yaml)**: Replication Controller de la base de datos
+- **[/kubeconfig/05-database-svc.yaml](/kubeconfig/05-database-svc.yaml)**: Servicio para exponer la base de datos en la red del cluster
+- **[/kubeconfig/06-cron-rc.yaml](/kubeconfig/06-cron-rc.yaml)**: Replication Controller para el contenedor del cron.
+- **[/kubeconfig/07-api-rc.yaml](/kubeconfig/07-api-rc.yaml)**: Replication Controller para el contenedor del api.
+- **[/kubeconfig/08-api-lb.yaml](/kubeconfig/08-api-lb.yaml)**: Load Balancer para exponer el API.
