@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mysql-database
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: mysql-database
+    spec:
+      containers:
+        - name: mysql-database
+          image: krabbit1993/metrobus_database:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-data
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-database-access
+                  key: rootPassword
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-database-access
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-database-access
+                  key: password
+            - name: MYSQL_DATABASE
+              value: metrobus
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: metrobus-pvc

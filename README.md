@@ -5,6 +5,7 @@
 - [Diagramas de los procesos de la solucion](#procesos_solucion)
     - [Proceso de consulta de datos abiertos y registro de información](#proc_consulta_datos_abiertos)
     - [Procesos de consulta de información via API](#proc_consulta_api)
+- [Versiones](#versiones)
 - [Módulos](#modulos)
     - [Domain](#domain)
     - [Town hall sync](#mod_town_hall_sync)
@@ -16,6 +17,7 @@
     - [API](#contenedor-api)
     - [Cron](#contenedor-cron)
     - [Database](#contenedor-database)
+- [Kubernetes](#kubernetes)
 
 
 ## <span id="especificacion">Especificación del problema</span>
@@ -40,6 +42,15 @@ consultado mediante un API Rest (o Graphql) filtrando por unidad o por alcaldía
 ![Proceso de consulta via API](/assets/process_api.png)
 
 *<sub>Diagrama de proceso de consulta via API</sub>*
+
+## <span id="versiones">Versiones</span>
+
+- Python: 3.7.8
+- MySQL: 8.0.20
+- Docker: 19.03.8
+- Kubernetes
+    - Major:"1"
+    - Minor:"18"
 
 ## <span id="modulos">Módulos</span>
 ### <span id="domain">Domain [domain]</span>
@@ -118,25 +129,48 @@ schema{
 Contiene los test unitarios.
 
 ## <span id="archivos">Archivos</span>
-- **api.py:** Inicia un servidor que expone el endpoint **/api** que corresponde a la API Graphql
-- **unit_location_sync.py:** Inicia el proceso de guardar la informacion de las alcaldias si no existe (ver: [Town hall sync](#town_hall_sync)), despues guarda
+- **[api.py](/api.py):** Inicia un servidor que expone el endpoint **/api** que corresponde a la API Graphql
+- **[unit_location_sync.py](/unit_location_sync.py):** Inicia el proceso de guardar la informacion de las alcaldias si no existe (ver: [Town hall sync](#town_hall_sync)), despues guarda
 la información de la ubicacion de las unidades del metrobus(ver:[Unit location sync](#unit_location_sync))
-- **requirements.api.py:** Dependencias del contenedor [API](#contenedor-api)
-- **requirements.cron.py:** Dependencias del contendor [CRON](#contenedor-cron)
-- **Dockerfile.api:** Dockerfile para el contenedor [API](#contenedor-api)
-- **Dockerfile.cron:** Dockerfile para el contenedor [Cron](#contenedor-cron)
-- **Dockerfile.database:** Dockerfile para el contenedor [Database](#contenedor-database)
+- **[requirements.api](/requirements.api).py:** Dependencias del contenedor [API](#contenedor-api)
+- **[requirements.cron](/requirements.cron).py:** Dependencias del contendor [CRON](#contenedor-cron)
+- **[Dockerfile.api](/Dockerfile.api):** Dockerfile para el contenedor [API](#contenedor-api)
+- **[Dockerfile.cron](/Dockerfile.cron):** Dockerfile para el contenedor [Cron](#contenedor-cron)
+- **[Dockerfile.database](/Dockerfile.database):** Dockerfile para el contenedor [Database](#contenedor-database)
 
 ## <span id="contenedores">Contenedores</span>
 ### <span id="contenedor-api">API</span>
 [Dockerfile.api](/Dockerfile.api)
 
-Imagen base utilizada: [python:3.7.8-slim](https://hub.docker.com/layers/python/library/python/3.7.8-slim/images/sha256-fe3f2c2b6ad6bb010426f50cdcc2350eef28f09505c1046f2ca68145c41ff6c6?context=explore) 
+Imagen base utilizada: [python:3.7.8-slim](https://hub.docker.com/layers/python/library/python/3.7.8-slim/images/sha256-fe3f2c2b6ad6bb010426f50cdcc2350eef28f09505c1046f2ca68145c41ff6c6?context=explore)
+
+Construccion: 
+```shell script
+ docker build -t krabbit1993/metrobus_api:1.0.1 -f Dockerfile.api .
+``` 
 ### <span id="contenedor-cron">Cron</span>
 [Dockerfile.cron](/Dockerfile.cron)
 
 Imagen base utilizada: [mysql:8.0.20](https://hub.docker.com/layers/mysql/library/mysql/8.0.20/images/sha256-0ba38ea9c478d1e98b2f0bc0cee5a62345c9f06f78c4b48123bdc70d8d224686?context=explore)
+
+Construccion: 
+```shell script
+ docker build -t krabbit1993/metrobus_cron:1.0.2 -f Dockerfile.cron .
+``` 
 ### <span id="contenedor-database">Database</span>
 [Dockerfile.database](Dockerfile.database)
 
 Imagen base utilizada: [python:3.7.8-slim](https://hub.docker.com/layers/python/library/python/3.7.8-slim/images/sha256-fe3f2c2b6ad6bb010426f50cdcc2350eef28f09505c1046f2ca68145c41ff6c6?context=explore)
+
+Construccion: 
+```shell script
+ docker build -t krabbit1993/metrobus_database:1.0.0 -f Dockerfile.database .
+``` 
+
+## <span id="kubernetes">Archivos de despiegle para Kubernetes</span>
+
+- **[/kubeconfig/01-database-pv.yaml](/kubeconfig/01-database-pv.yaml)**: Volumen para la base de datos.
+- **[/kubeconfig/02-database-pvc.yaml](/kubeconfig/02-database-pvc.yaml)**: Claim para el volumen la base de datos.
+- **[/kubeconfig/03-database-secret.yaml](/kubeconfig/03-database-secret.yaml)**: Credenciales de acceso para la base de datos.-
+ 
+ 
