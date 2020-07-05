@@ -8,22 +8,22 @@ COPY requirements.cron.txt requirements.cron.txt
 RUN pip install --no-cache-dir -r requirements.cron.txt
 
 RUN touch /usr/src/environ
-RUN touch /var/log/microbus_cron.log
+RUN touch /var/log/metrobus_cron.log
 
-RUN echo 'SHELL=/bin/bash' > /etc/cron.d/microbus_cron
-RUN echo '* * * * * /usr/src/run_py.sh > /proc/1/fd/1 2>/proc/1/fd/2' >> /etc/cron.d/microbus_cron
-RUN echo '#empty line for cron file' >> /etc/cron.d/microbus_cron
-RUN chmod 644 /etc/cron.d/microbus_cron
+RUN echo 'SHELL=/bin/bash' > /etc/cron.d/metrobus_cron
+RUN echo '* * * * * /usr/src/run_py.sh > /proc/1/fd/1 2>/proc/1/fd/2' >> /etc/cron.d/metrobus_cron
+RUN echo '#empty line for cron file' >> /etc/cron.d/metrobus_cron
+RUN chmod 644 /etc/cron.d/metrobus_cron
 
 RUN echo "source /usr/src/environ &&" > /usr/src/run_py.sh
 RUN echo "$(which python) /usr/src/app/unit_location_sync.py" >> /usr/src/run_py.sh
 RUN chmod +x /usr/src/run_py.sh
 
-COPY domain .
-COPY town_hall_sync .
-COPY unit_location_sync .
+COPY domain ./domain
+COPY town_hall_sync ./town_hall_sync
+COPY unit_location_sync ./unit_location_sync
 COPY unit_location_sync.py .
 
-RUN crontab /etc/cron.d/microbus_cron
+RUN crontab /etc/cron.d/metrobus_cron
 
 CMD env > /usr/src/environ && sed -i -e 's/^/export /' /usr/src/environ && cron -f

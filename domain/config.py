@@ -31,7 +31,7 @@ logging.getLogger().setLevel(logging.INFO)
 
 
 os.makedirs("/var/log/", exist_ok=True)
-file_handler = logging.FileHandler("/var/log/microbus_cron.log")
+file_handler = logging.FileHandler("/var/log/metrobus_cron.log")
 file_handler.setFormatter(formatter)
 logging.getLogger().addHandler(file_handler)
 logging.getLogger().setLevel(logging.INFO)

@@ -6,8 +6,8 @@ COPY requirements.api.txt .
 
 RUN pip install --no-cache-dir -r requirements.api.txt
 
-COPY api .
-COPY domain .
+COPY api ./api
+COPY domain ./domain
 COPY api.py .
 
 CMD ["python", "api.py"]
