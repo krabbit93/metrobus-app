@@ -17,7 +17,7 @@
     - [API](#contenedor-api)
     - [Cron](#contenedor-cron)
     - [Database](#contenedor-database)
-- [Kubernetes](#kubernetes)
+- [Archivos de despliege para Kubernetes](#kubernetes)
 
 
 ## <span id="especificacion">Especificación del problema</span>
@@ -167,10 +167,13 @@ Construccion:
  docker build -t krabbit1993/metrobus_database:1.0.0 -f Dockerfile.database .
 ``` 
 
-## <span id="kubernetes">Archivos de despiegle para Kubernetes</span>
+## <span id="kubernetes">Archivos de despliege para Kubernetes</span>
 
-- **[/kubeconfig/01-database-pv.yaml](/kubeconfig/01-database-pv.yaml)**: Volumen para la base de datos.
-- **[/kubeconfig/02-database-pvc.yaml](/kubeconfig/02-database-pvc.yaml)**: Claim para el volumen la base de datos.
-- **[/kubeconfig/03-database-secret.yaml](/kubeconfig/03-database-secret.yaml)**: Credenciales de acceso para la base de datos.-
- 
- 
+- **[/kubeconfig/01-database-pv.yaml](/kubeconfig/01-database-pv.yaml)**: Volumen persistente para la base de datos.
+- **[/kubeconfig/02-database-pvc.yaml](/kubeconfig/02-database-pvc.yaml)**: Claims para el volumen persistente.
+- **[/kubeconfig/03-database-secret.yaml](/kubeconfig/03-database-secret.yaml)**: Credenciales para la base de datos.
+- **[/kubeconfig/04-database-rc.yaml](/kubeconfig/04-database-rc.yaml)**: Replication Controller de la base de datos
+- **[/kubeconfig/05-database-svc.yaml](/kubeconfig/05-database-svc.yaml)**: Servicio para exponer la base de datos en la red del cluster
+- **[/kubeconfig/06-cron-rc.yaml](/kubeconfig/06-cron-rc.yaml)**: Replication Controller para el contenedor del cron.
+- **[/kubeconfig/07-api-rc.yaml](/kubeconfig/07-api-rc.yaml)**: Replication Controller para el contenedor del api.
+- **[/kubeconfig/08-api-lb.yaml](/kubeconfig/08-api-lb.yaml)**: Load Balancer para exponer el API.
